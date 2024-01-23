@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>NirChat Room</title>
+	<script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
+
+	<link href="https://fonts.googleapis.com/css?family=Yeon+Sung&display=swap" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+
+<body>
+	<div class="container">
+		<!--<button id="logout" class="glyphicon glyphicon-log-out btn btn-danger" onclick="logOut()"> <b>Logout</b></button> -->
+		<center>
+			<h1 class="header">
+				<img src="NirChat-text.png" class="logo">
+			</h1>
+			<h3 class="color_white" id="user_name"></h3>
+			<div class="form-group input_div_room_page">
+				<h3 id="welcome" class="color_white"></h3>
+				<label class="color_white">Enter roomcode</label>
+				<br>
+				<div style="display: flex; "><span><input style="width: 60vw; margin-right: 1vw;" type="number"
+							class="form-control" id="room_name" placeholder="#Room Name"></span> <span><button
+							class="sp btn fa fa-duotone fa-repeat rem1-5" onclick="generate()" title="Generate a secure room code on click of a button!" id="re"></button></span>
+				</div>
+				<br>
+				<button class="btn fa fa-plus-circle" id="add_room" onclick="addRoom()" style='margin-top:5px'> #Add
+					Room</button>
+			</div>
+
+		</center>
+	</div>
+	<script src="kwitter_room.js"></script>
+</body>
+
+</html>

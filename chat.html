@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Chat Vista</title>
+   <link href="https://fonts.googleapis.com/css?family=Yeon+Sung&display=swap" rel="stylesheet">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <script src="https://cdn.tailwindcss.com"></script>
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+   <link rel="stylesheet" type="text/css" href="style.css">
+   <script src="kwitter.js"></script>
+</head>
+
+<body onload="getUserName()">
+
+
+   <div class="flex justify-between px-5 w-full"><button data-drawer-target="default-sidebar"
+         data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button"
+         class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:invisible hover:bg-[#a25d34] focus:outline-none focus:ring-2 focus:ring-gray-200 text-white">
+         <span class="sr-only">Open sidebar</span>
+         <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg">
+            <path clip-rule="evenodd" fill-rule="evenodd"
+               d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+            </path>
+         </svg>
+      </button>
+      <h1 class="font-semibold p-2 mt-2 ms-3 text-white" id="display_rn"></h1>
+
+      <button type="button" onclick="delete_roomdata()"
+         class="float-right inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg hover:bg-[#a25d34] focus:outline-none focus:ring-2 focus:ring-gray-200 text-white">
+         <span class="sr-only">Delete Chats</span>
+         <svg xmlns="http://www.w3.org/2000/svg" class="ionicon w-6 h-6" viewBox="0 0 512 512">
+            <path d="M112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320" fill="none"
+               stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+            <path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32"
+               d="M80 112h352" />
+            <path
+               d="M192 112V72h0a23.93 23.93 0 0124-24h80a23.93 23.93 0 0124 24h0v40M256 176v224M184 176l8 224M328 176l-8 224"
+               fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+         </svg> </button>
+
+   </div>
+
+
+   <aside id="default-sidebar"
+      class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+      aria-label="Sidebar">
+      <div class="flex justify-between py-5 flex-col h-screen px-3 py-4 overflow-y-auto bg-black text-white">
+         <div class=""><button data-modal-target="input_modal" data-modal-toggle="input_modal"
+               class="hover:bg-[#1a1a18] p-2 w-full rounded-lg transition duration-300 delay-150 hover:delay-300">
+               <div class="flex justify-between">
+                  <h1 class="font-bold">New Chat</h1>
+                  <h1 class="font-bold">+</h1>
+               </div>
+            </button>
+
+            <h4 class="text-xs font-semibold text-[#666] float-left mx-2 mt-5">Your previous chats</h4>
+            <br><br>
+            <ul class="space-y-4 font-medium flex flex-col w-full text-left px-2	" id="add_room_fromdb">
+            </ul>
+         </div>
+
+
+         <div class="bottom flex space-x-3">
+            <img src="https://i.ibb.co/GVZtw0q/User-Icon-Grey-300x300.png" class="rounded-full w-8 h-8" alt="">
+            <h1 class="font-sohne text-lg" id="name"></h1>
+         </div>
+      </div>
+   </aside>
+
+   <div class="p-4 sm:ml-64 h-[90vh] overflow-hidden ">
+      <div class="font-sohne text-white font-extrabold text-4xl items-center justify-center flex calculated-width-16rem"
+         id="hide-later">
+         <h1 id="add-text-un"></h1>
+      </div>
+      <div class="space-y-[3vh]" id="chat-main">
+         <div id="output" class="h-[75vh] space-y-[4vh] overflow-y-auto"></div>
+
+         <div>
+            <div class="flex rounded-lg shadow-sm">
+               <input type="text" id="msg"
+                  name="hs-trailing-button-add-on-multiple-add-ons"
+                  class="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-full text-sm focus:outline-none focus:border-white focus:ring-0 bg-transparent text-white border-r-0 rounded-r-none " placeholder="Enter Message...">
+               <button onclick="send()" type="button"
+                  class="-ms-px py-3 px-4 inline-flex justify-center items-center font-medium align-middle transition-all text-sm border-y">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="ionicon sm:w-6 sm:h-6 w-4 h-4" viewBox="0 0 512 512">
+                     <path
+                        d="M470.3 271.15L43.16 447.31a7.83 7.83 0 01-11.16-7V327a8 8 0 016.51-7.86l247.62-47c17.36-3.29 17.36-28.15 0-31.44l-247.63-47a8 8 0 01-6.5-7.85V72.59c0-5.74 5.88-10.26 11.16-8L470.3 241.76a16 16 0 010 29.39z"
+                        fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="32" /></svg> </button>
+               <button type="button" data-modal-target="input_modal_2" data-modal-toggle="input_modal_2"
+                  class="-ms-px py-3 px-4 inline-flex justify-center items-center font-medium align-middle transition-all text-sm border-y">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="ionicon sm:w-6 sm:h-6 w-4 h-4" viewBox="0 0 512 512">
+                     <rect x="48" y="80" width="416" height="352" rx="48" ry="48" fill="none" stroke="white"
+                        stroke-linejoin="round" stroke-width="32" />
+                     <circle cx="336" cy="176" r="32" fill="none" stroke="white" stroke-miterlimit="10"
+                        stroke-width="32" />
+                     <path
+                        d="M304 335.79l-90.66-90.49a32 32 0 00-43.87-1.3L48 352M224 432l123.34-123.34a32 32 0 0143.11-2L464 368"
+                        fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="32" /></svg> </button>
+               <button onclick="vc()" type="button"
+                  class="-ms-px py-3 px-4 inline-flex justify-center items-center font-medium align-middle transition-all text-sm border-y border-r rounded-r-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="ionicon sm:w-6 sm:h-6 w-4 h-4" viewBox="0 0 512 512">
+                     <path
+                        d="M374.79 308.78L457.5 367a16 16 0 0022.5-14.62V159.62A16 16 0 00457.5 145l-82.71 58.22A16 16 0 00368 216.3v79.4a16 16 0 006.79 13.08z"
+                        fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="32" />
+                     <path
+                        d="M268 384H84a52.15 52.15 0 01-52-52V180a52.15 52.15 0 0152-52h184.48A51.68 51.68 0 01320 179.52V332a52.15 52.15 0 01-52 52z"
+                        fill="none" stroke="white" stroke-miterlimit="10" stroke-width="32" /></svg> </button>
+            </div>
+         </div>
+      </div>
+
+
+   </div>
+
+
+
+
+   <div id="input_modal" tabindex="-1" aria-hidden="true"
+      class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+      <div class="relative p-4 w-full max-w-2xl max-h-full">
+         <!-- Modal content -->
+         <div class="relative bg-black rounded-lg shadow">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-[#a25d34]">
+               <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                  New Chat Number
+               </h3>
+               <button type="button"
+                  class="text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-[#a25d34] hover:text-white"
+                  data-modal-hide="input_modal">
+                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                     viewBox="0 0 14 14">
+                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                  </svg>
+                  <span class="sr-only">Close modal</span>
+               </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 md:p-5 space-y-4 flex items-center justify-center">
+               <div class="relative flex w-full max-w-[24rem]">
+                  <div class="relative h-10 w-full min-w-[200px]">
+                     <input type="email"
+                        class="peer h-full w-full rounded-[7px] border border-white bg-transparent px-3 py-2.5 pr-20 font-sans text-sm font-normal text-white outline outline-0 focus:ring-0 transition-all placeholder-shown:border placeholder-shown:border-white placeholder-shown:border-t-blue-gray-200 focus:border-1 focus:border-[#cfa380] focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                        placeholder=" " value="" id="new_input_chat" />
+                     <label
+                        class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-[#cfa380] before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-[#cfa380] after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-[#cfa380] peer-focus:before:border-t-2 peer-focus:before:border-l-1 peer-focus:before:!border-[#cfa380] peer-focus:after:border-t-1 peer-focus:after:border-l-1 peer-focus:after:border-r-1 peer-focus:after:!border-[#cfa380] peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-[#cfa380]">
+                        Room Number
+                     </label>
+                  </div>
+                  <button data-modal-hide="input_modal"
+                     class="!absolute right-1 top-1 select-none rounded bg-[#cfa380] py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-black shadow-md shadow-blue-gray-500/20 transition-all hover:shadow-lg hover:shadow-blue-gray-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                     type="button" onclick="newChat()" id="newcbut">
+                     Join Chat
+                  </button>
+               </div>
+            </div>
+
+         </div>
+      </div>
+   </div>
+
+   <div id="input_modal_2" tabindex="-1" aria-hidden="true"
+   class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+   <div class="relative p-4 w-full max-w-2xl max-h-full">
+      <!-- Modal content -->
+      <div class="relative bg-black rounded-lg shadow">
+         <!-- Modal header -->
+         <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-[#a25d34]">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+               Send Image
+            </h3>
+            <button type="button"
+               class="text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-[#a25d34] hover:text-white"
+               data-modal-hide="input_modal_2">
+               <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                  viewBox="0 0 14 14">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                     d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+               </svg>
+               <span class="sr-only">Close modal</span>
+            </button>
+         </div>
+         <!-- Modal body -->
+         <div class="p-4 md:p-5 space-y-4 flex-col flex items-center justify-center">
+            <div class="relative flex w-full max-w-[24rem]">
+               <div class="relative h-10 items-center justify-center w-full child min-w-[200px]">
+                  <input type="url" id="url"
+                     class="peer h-full w-full rounded-[7px] border border-white bg-transparent px-3 py-2.5 pr-20 font-sans text-sm font-normal text-white outline outline-0 focus:ring-0 transition-all placeholder-shown:border placeholder-shown:border-white placeholder-shown:border-t-blue-gray-200 focus:border-1 focus:border-[#cfa380] focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                     placeholder=" " value="" id="new_input_chat" />
+                  <label
+                     class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-[#cfa380] before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-[#cfa380] after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-[#cfa380] peer-focus:before:border-t-2 peer-focus:before:border-l-1 peer-focus:before:!border-[#cfa380] peer-focus:after:border-t-1 peer-focus:after:border-l-1 peer-focus:after:border-r-1 peer-focus:after:!border-[#cfa380] peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-[#cfa380]">
+                     Enter URL
+                  </label>
+               </div>
+               <button data-modal-hide="input_modal_2"
+                  class="!absolute right-1 top-1 select-none rounded bg-[#cfa380] py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-black shadow-md shadow-blue-gray-500/20 transition-all hover:shadow-lg hover:shadow-blue-gray-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                  type="button" onclick="isImage()">
+                  Submit
+               </button>
+            </div>
+
+            <h2 class="text-white child">Covert your image to link from: <a href="https://imgbb.com/" target="_blank" class="hover:underline">https://imgbb.com/</a></h2>
+         </div>
+
+      </div>
+   </div>
+</div>
+
+
+
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+
+
+   <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+
+   <!-- TODO: Add SDKs for Firebase products that you want to use
+	 https://firebase.google.com/docs/web/setup#available-libraries -->
+   <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+   <script src="chat.js"></script>
+</body>
+
+</html>

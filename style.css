@@ -1,0 +1,122 @@
+@font-face {
+	font-family: logo-sans;
+	src: url(Product\ Sans\ Regular.ttf);
+}
+
+@font-face {
+	font-family: sohne;
+	src: url(Söhne-Font-Family-Collection/Sohne.otf);
+}
+
+body {
+background-color: #1a1a18;
+	background-size: cover;
+	background-position: center;
+	text-align: center;
+}
+
+/*#output {
+	padding: 10px;
+	width: 80%;
+	background: rgba(255, 255, 255, 0.8);
+	border-radius: 15px;
+	max-height: 400px;
+	overflow: auto;
+
+}*/
+
+.color_white {
+	color: white;
+	font-weight: bold;
+}
+
+.message_h4 img{
+width: auto !important; /*override the width below*/
+width: 100%;
+max-width: 678px;
+clear: both;
+}
+
+
+@media screen and (max-width: 1000px) {
+	.message_h4 img{
+		width: auto !important; /*override the width below*/
+		width: 100%;
+		max-width: 478px;
+		clear: both;
+		}
+  }
+
+  @media screen and (max-width: 650px) {
+	.message_h4 img{
+		width: auto !important; /*override the width below*/
+		width: 100%;
+		max-width: 278px;
+		clear: both;
+		}
+  }
+
+  @media screen and (max-width: 450px) {
+	.message_h4 img{
+		width: auto !important; /*override the width below*/
+		width: 100%;
+		max-width: 178px;
+		clear: both;
+		font-size: large !important;
+		}
+  }
+
+  @font-face {
+	font-family: fasthand;
+	src: url(Fasthand-Regular.ttf);
+	font-weight: bold;
+  }
+
+.time {
+	float: right;
+	color: gray;
+	font-weight: 200;
+}
+
+#output button{
+	background-color: #CCAD8F;
+}
+
+
+textarea {
+	resize: vertical;
+	max-height: 350px;
+	min-height: 50px;
+}
+
+.font-sohne{
+	font-family: sohne;
+}
+.font-logo{
+	font-family: logo-sans;
+}
+
+
+::-webkit-scrollbar {
+	width: 10px;
+  }
+  
+  
+  ::-webkit-scrollbar-track {
+	background: #1a1a18;
+  }
+  
+  
+  ::-webkit-scrollbar-thumb {
+	background: #757273;
+	border-radius: 5px;
+  }
+  
+  
+  ::-webkit-scrollbar-thumb:hover {
+	background: gray;
+  }
+  
+  #output{
+	overflow-wrap: break-word;
+  }

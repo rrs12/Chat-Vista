@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>NirChat</title>
+	<link href="https://fonts.googleapis.com/css?family=Yeon+Sung&display=swap" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="kwitter.js"></script>
+</head>
+
+<body>
+<div class="h-screen flex flex-col justify-center p-10 items-center">
+<h1 class="font-logo text-4xl text-white font-bold">Chat Vista</h1>
+
+<div class="relative p-4 w-full max-w-2xl h-auto overflow-hidden">
+	<!-- Modal content -->
+		<!-- Modal body -->
+		<section class="flex flex-col flex-row h-full items-center w-full">
+
+
+			<div class=" w-full md:max-w-md lg:max-w-full md:mx-auto pt-5 pb-8 px-6 lg:px-16
+	  flex items-center justify-center space-y-8">
+
+				<div class="w-full h-90">
+                    <h1 class="text-xl text-white font-semibold">Create Account</h1>
+                    <div>
+                        <label class="block text-white float-left">Username</label>
+                        <input name="" id="name" placeholder="Enter Username"
+                            class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-[#cfa380] focus:bg-white focus:outline-none"
+                        >
+                    </div>
+
+						<div class="mt-4">
+							<label class="block text-white float-left">Email Address</label>
+							<input name="" id="email" placeholder="Enter Email Address"
+								class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-[#cfa380] focus:bg-white focus:outline-none"
+							>
+						</div>
+
+						<div class="mt-4">
+							<label class="block text-white float-left">Password</label>
+							<input name="" id="password" placeholder="Enter Password"
+								class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-[#cfa380]
+			  focus:bg-white focus:outline-none">
+						</div>
+
+						<button type="submit" class=" w-full text-white block hover:bg-[#fc7c32] focus:bg-[#fc7c32] font-bold rounded-lg
+			px-4 py-3 mt-6 bg-gradient-to-r from-[#cfa380] to-[#a25d34]" onclick="register()">Sign Up</button>
+
+
+					<p class="mt-8 text-white">Already have an account? &nbsp<button
+							class="text-[#cfa380] hover:text-[#a25d34] font-semibold" type="button"><a href="index.html">Sign In</a> </button></p>
+
+
+				</div>
+			</div>
+
+		</section>
+</div>
+
+</div>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+	 https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+
+<script src="login.js"></script>
+</body>
+
+</html>
