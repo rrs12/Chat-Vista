@@ -159,30 +159,3 @@ function reset(){
       return true
     }
 }
-
-/**function addRoom() {
-    user=auth.currentUser
-    room_name = user.uid
-    firebase.database().ref("/").child(room_name).update({
-          Purpose: "Add Room"
-    });
-    localStorage.setItem("Room Name", room_name)
-    window.location = "dashboard.html"
-}
-
-function getData() {
-    firebase.database().ref("/").on('value', function (snapshot) {
-          snapshot.forEach(function (childSnapshot) {
-                childKey = childSnapshot.key;
-                Room_names = childKey;
-
-          });
-    });
-}
-getData();
-
-function redirectToRoomName(name) {
-localStorage.setItem("Room Name", name)
-  window.location = "dashboard.html"
-}**/
-
