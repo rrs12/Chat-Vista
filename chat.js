@@ -32,26 +32,15 @@ function getUserName() {
   })
 
   if(localStorage.getItem("Room Name")!=null){
-      document.getElementById("hide-later").classList.add("hidden")
-
-  }
-  else{
-    document.getElementById("chat-main").classList.add("hidden")
-
-  }
-
-  if(localStorage.getItem("Room Name")!=null){
     document.getElementById("hide-later").classList.add("hidden")
     document.getElementById("chat-main").classList.remove("hidden")
-
-
+    document.getElementById("display_rn").innerHTML="Room Number: "+localStorage.getItem("Room Name")
 }
 else{
   document.getElementById("chat-main").classList.add("hidden")
 
 }
   getRoomData()
-  document.getElementById("display_rn").innerHTML="Room Number: "+localStorage.getItem("Room Name")
 
 }
 
@@ -138,6 +127,7 @@ else{
   document.getElementById("chat-main").classList.add("hidden")
 
 }
+getData()
 }
 
 function getData() {
@@ -174,6 +164,9 @@ getData()
 
 
 function delete_roomdata() {
+  input=document.getElementById("msg")
+room_name=localStorage.getItem("Room Name")
+user_name=localStorage.getItem("User Name")
   firebase.database().ref("/" + room_name).on('value', function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
               childKey = childSnapshot.key;
@@ -199,6 +192,9 @@ function delete_roomdata() {
 
 
 function send() {
+  input=document.getElementById("msg")
+room_name=localStorage.getItem("Room Name")
+user_name=localStorage.getItem("User Name")
     var today = new Date();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     msg = document.getElementById("msg").value;
@@ -234,10 +230,16 @@ input.addEventListener("keypress", function(event) {
 })
 
 function vc(){
+  input=document.getElementById("msg")
+room_name=localStorage.getItem("Room Name")
+user_name=localStorage.getItem("User Name")
   window.open("https://talky.io/NirChat_"+room_name, "_blank")
 }
 
 function isImage() {
+  input=document.getElementById("msg")
+room_name=localStorage.getItem("Room Name")
+user_name=localStorage.getItem("User Name")
   var image = new Image();
   image_url=document.getElementById("url").value;
   image.onload = function() {
