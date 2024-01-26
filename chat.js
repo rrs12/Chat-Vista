@@ -45,6 +45,7 @@ else{
 }
 
 function newChat() {
+  var Room_names
   new_room = document.getElementById("new_input_chat").value
   if (validate_room(new_room) == true) {
     user_db=localStorage.getItem("user_db")
@@ -75,7 +76,7 @@ function newChat() {
       });
       database_ref.child('/' + user.uid + "/Room_Numbers").push(new_room)
       document.getElementById("new_input_chat").value = null
-  
+      redirectToRoomName(new_room)
     }
 
   

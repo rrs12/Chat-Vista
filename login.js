@@ -24,7 +24,7 @@ function reset(){
     console.log("password done")
   })
   .catch(error=>{
-    console.error(error)
+    alert(error.message)
   })
 }
 
@@ -37,7 +37,7 @@ function reset(){
 
     // Validate input fields
     if (validate_email(email) == false || validate_password(password) == false) {
-      alert('Email or Password is Outta Line!!')
+      alert('Email or Password is incorrect!')
       return
       // Don't continue running the code
     }
@@ -66,9 +66,8 @@ function reset(){
       database_ref.child('/' + user.uid).set(user_data)
   
       // DOne
-      alert('User Created!!')
-      window.location='index.html';
-    })
+      sendVerificationEmail()
+        })
     .catch(function(error) {
       // Firebase will use this to alert of its errors
       var error_code = error.code
@@ -88,7 +87,7 @@ function reset(){
   
     // Validate input fields
     if (validate_email(email) == false || validate_password(password) == false) {
-      alert('Email or Password is Outta Line!!')
+      alert('Email or Password is incorrect!')
       return
       // Don't continue running the code
     }
@@ -124,7 +123,16 @@ function reset(){
     })
   }
   
-  
+const sendVerificationEmail=()=>{
+  auth.currentUser.sendEmailVerification()
+  .then(()=>{
+    alert("User Created!")
+    window.location="index.html"
+  } )
+  .catch(error=>{
+    alert(error.message)
+  })
+}
   
   
   // Validate Functions
