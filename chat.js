@@ -148,10 +148,14 @@ function getData() {
                     like = message_data["like"];
                     timed = message_data['time']
 
-
+                    if (named==localStorage.getItem("User Name")){
+                    row = "<div><h4 class='name_msg text-white text-xl font-extrabold font-sohne justify-between flex px-5 pb-2'> You " + "<b class='time text-sm'> " + timed + "</b>" + "</h4><h4 class='message_h4 text-white text-left font-sohne px-5 text-lg'>" + message + "</h4></div>";
+                    document.getElementById("output").innerHTML += row;
+                    }
+                    else{
                     row = "<div><h4 class='name_msg text-white text-xl font-extrabold font-sohne justify-between flex px-5 pb-2'> " + named + "<b class='time text-sm'> " + timed + "</b>" + "</h4><h4 class='message_h4 text-white text-left font-sohne px-5 text-lg'>" + message + "</h4></div>";
                     document.getElementById("output").innerHTML += row;
-
+                    }
 
                     //End code    
                     var objDiv = document.getElementById("output");
